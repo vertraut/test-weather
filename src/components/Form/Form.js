@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import s from './Form.module.css';
+
 export default function Form({ setCity }) {
   const [inputCity, setInputCity] = useState('');
 
@@ -15,14 +17,17 @@ export default function Form({ setCity }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={s.form}>
       <input
         type="text"
         name="city"
         value={inputCity}
         onChange={handleCityChange}
+        className={s.input}
       />
-      <button type="submit">Найти</button>
+      <button type="submit" className={s.button}>
+        Найти
+      </button>
     </form>
   );
 }

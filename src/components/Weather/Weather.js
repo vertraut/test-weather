@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-// import s from './Weather.module.css';
+import s from './Weather.module.css';
 import {
   getWeatherByCity,
   getWeatherByCoords,
@@ -18,8 +18,13 @@ export default function Weather() {
 
   useEffect(() => {
     if (!city) return;
+    console.log(1);
     setIsLoading(true);
-    getWeatherByCity(city).then(setWeather).finally(setIsLoading(false));
+    getWeatherByCity(city)
+      .then(setWeather)
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [city]);
 
   // useEffect(() => {
@@ -42,7 +47,7 @@ export default function Weather() {
   // }
 
   return (
-    <div>
+    <div className={s.wrapper}>
       <Form setCity={setCity} />
       {isLoading && <Loader />}
       {Object.keys(weather).length !== 0 && !isLoading && (

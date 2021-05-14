@@ -6,8 +6,11 @@ import {
   getWeatherByCoords,
 } from '../../weatherAPI/weatherAPI';
 import Form from '../Form';
+import Loader from '../Loader';
+import WeatherBar from '../WeatherBar';
 
 export default function Weather() {
+  const [isLoading, setIsLoading] = useState(false);
   const [coords, setCoords] = useState({});
 
   const [city, setCity] = useState('');
@@ -15,31 +18,36 @@ export default function Weather() {
 
   useEffect(() => {
     if (!city) return;
-    getWeatherByCity(city).then(setWeather);
+    setIsLoading(true);
+    getWeatherByCity(city).then(setWeather).finally(setIsLoading(false));
   }, [city]);
 
-  useEffect(getLocation, [coords]);
+  // useEffect(() => {
+  //   if (coords) return;
+  //   const geolocation = navigator.geolocation;
+  //   geolocation.getCurrentPosition(showLocation, errorHandler);
+  //   console.log('useEffect coords');
+  // }, [coords]);
 
-  function getLocation() {
-    const geolocation = navigator.geolocation;
-    geolocation.getCurrentPosition(showLocation, errorHandler);
-  }
+  // async function showLocation({ coords }) {
+  //   const currentCoords = { lat: coords.latitude, lon: coords.longitude };
+  //   setCoords(currentCoords);
 
-  async function showLocation({ coords }) {
-    const currentCoords = { lat: coords.latitude, lon: coords.longitude };
-    setCoords(currentCoords);
+  //   //const weather = await getWeatherByCoords(currentCoords);
+  //   //setWeather(weather);
+  // }
 
-    const weather = await getWeatherByCoords(currentCoords);
-    setWeather(weather);
-  }
-
-  function errorHandler(error) {
-    console.log(error);
-  }
+  // function errorHandler(error) {
+  //   console.log(error);
+  // }
 
   return (
     <div>
       <Form setCity={setCity} />
+      {isLoading && <Loader />}
+      {Object.keys(weather).length !== 0 && !isLoading && (
+        <WeatherBar weather={weather} />
+      )}
     </div>
   );
 }

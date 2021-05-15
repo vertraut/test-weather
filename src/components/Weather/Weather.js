@@ -11,10 +11,21 @@ import WeatherBar from '../WeatherBar';
 
 export default function Weather() {
   const [isLoading, setIsLoading] = useState(false);
-  const [coords, setCoords] = useState({});
-
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState(getCityFromLocalStorage);
   const [weather, setWeather] = useState({});
+
+  function getCityFromLocalStorage() {
+    return JSON.parse(window.localStorage.getItem('city')) ?? '';
+  }
+
+  useEffect(() => {
+    window.localStorage.setItem('city', JSON.stringify(city));
+
+    if (city === '') {
+      const geolocation = navigator.geolocation;
+      geolocation.getCurrentPosition(showLocation, errorHandler);
+    }
+  }, [city]);
 
   useEffect(() => {
     if (!city) return;
@@ -26,15 +37,9 @@ export default function Weather() {
       });
   }, [city]);
 
-  useEffect(() => {
-    const geolocation = navigator.geolocation;
-    geolocation.getCurrentPosition(showLocation, errorHandler);
-  }, []);
-
   async function showLocation({ coords }) {
     setIsLoading(true);
     const currentCoords = { lat: coords.latitude, lon: coords.longitude };
-    setCoords(currentCoords);
     const weather = await getWeatherByCoords(currentCoords);
     setWeather(weather);
     setIsLoading(false);

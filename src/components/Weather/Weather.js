@@ -10,7 +10,7 @@ import Loader from '../Loader';
 import WeatherBar from '../WeatherBar';
 
 export default function Weather() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [coords, setCoords] = useState({});
 
   const [city, setCity] = useState('');
@@ -18,7 +18,6 @@ export default function Weather() {
 
   useEffect(() => {
     if (!city) return;
-    console.log(1);
     setIsLoading(true);
     getWeatherByCity(city)
       .then(setWeather)
@@ -27,24 +26,23 @@ export default function Weather() {
       });
   }, [city]);
 
-  // useEffect(() => {
-  //   if (coords) return;
-  //   const geolocation = navigator.geolocation;
-  //   geolocation.getCurrentPosition(showLocation, errorHandler);
-  //   console.log('useEffect coords');
-  // }, [coords]);
+  useEffect(() => {
+    const geolocation = navigator.geolocation;
+    geolocation.getCurrentPosition(showLocation, errorHandler);
+  }, []);
 
-  // async function showLocation({ coords }) {
-  //   const currentCoords = { lat: coords.latitude, lon: coords.longitude };
-  //   setCoords(currentCoords);
+  async function showLocation({ coords }) {
+    setIsLoading(true);
+    const currentCoords = { lat: coords.latitude, lon: coords.longitude };
+    setCoords(currentCoords);
+    const weather = await getWeatherByCoords(currentCoords);
+    setWeather(weather);
+    setIsLoading(false);
+  }
 
-  //   //const weather = await getWeatherByCoords(currentCoords);
-  //   //setWeather(weather);
-  // }
-
-  // function errorHandler(error) {
-  //   console.log(error);
-  // }
+  function errorHandler(error) {
+    console.log(error);
+  }
 
   return (
     <div className={s.wrapper}>

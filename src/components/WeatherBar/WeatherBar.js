@@ -1,6 +1,6 @@
 import s from './WeatherBar.module.css';
+
 export default function WeatherBar({ weather }) {
-  console.log(weather);
   function tempNormalize(temp, digits) {
     return `${temp > 0 ? '+' : '-'}${temp.toFixed(digits)}°`;
   }

@@ -10,7 +10,7 @@ import Loader from '../Loader';
 import WeatherBar from '../WeatherBar';
 
 export default function Weather() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [coords, setCoords] = useState({});
 
   const [city, setCity] = useState('');

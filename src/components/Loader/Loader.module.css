@@ -1,0 +1,9 @@
+.spinner {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.spinner span span {
+  background-color: #1c334d;
+}

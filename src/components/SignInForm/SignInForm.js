@@ -46,7 +46,7 @@ export default function Navigation() {
       </p>
       <form onSubmit={handleSubmit} className={s.form}>
         <label>
-          Логин*
+          Login*
           <input
             type="text"
             name={LABEL_NAME.login}
@@ -59,7 +59,7 @@ export default function Navigation() {
           />
         </label>
         <label>
-          Пароль*
+          Password*
           <input
             type="password"
             name={LABEL_NAME.pass}

@@ -10,7 +10,7 @@
   height: 25px;
   font-size: 16px;
   margin-right: 20px;
-  border: 1px solid #bf8330;
+  border: 1px solid #4f6580;
   font-weight: 700;
   color: inherit;
   outline: none;
@@ -18,10 +18,10 @@
 
 .button {
   width: 100px;
-  height: 28px;
+  height: 29px;
   cursor: pointer;
-  border: 1px solid #bf8330;
-  background-color: #ffc473;
+  border: 1px solid #4f6580;
+  background-color: #fff3dc;
   font-weight: 500;
   color: inherit;
   outline: none;
@@ -29,6 +29,6 @@
 
 .button:hover,
 .button:focus {
-  background-color: #a66000;
+  background-color: #455c77;
   color: #ffffff;
 }

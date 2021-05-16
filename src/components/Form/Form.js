@@ -24,6 +24,7 @@ export default function Form({ setCity }) {
         value={inputCity}
         onChange={handleCityChange}
         className={s.input}
+        autoComplete="off"
       />
 
       <button type="submit" className={s.button}>

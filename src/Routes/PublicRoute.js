@@ -7,6 +7,8 @@ export default function PrivateRoute({ children, ...routeProps }) {
   const { isLogin } = useContext(authCtx);
 
   return (
-    <Route {...routeProps}>{isLogin ? children : <Redirect to="/" />}</Route>
+    <Route {...routeProps}>
+      {isLogin ? <Redirect to="/weather" /> : children}
+    </Route>
   );
 }

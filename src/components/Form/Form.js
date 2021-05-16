@@ -27,7 +27,7 @@ export default function Form({ setCity }) {
       />
 
       <button type="submit" className={s.button}>
-        Найти
+        Search
       </button>
     </form>
   );

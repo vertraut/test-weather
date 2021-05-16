@@ -9,6 +9,8 @@ export default function Navigation() {
 
   const authContext = useContext(authCtx);
 
+  const userData = { login: 'test123', pass: 'test123' };
+
   const LABEL_NAME = {
     login: 'login',
     pass: 'password',
@@ -16,7 +18,12 @@ export default function Navigation() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    authContext.logIn();
+    if (userData.login === login && userData.pass === password) {
+      authContext.logIn();
+      return;
+    }
+
+    alert('Incorrect login and/or password. Please try again.');
   }
 
   function handleChange(e) {
@@ -34,6 +41,9 @@ export default function Navigation() {
 
   return (
     <div className={s.wrapper}>
+      <p className={s.testData}>
+        Login/password: <span>test123</span>
+      </p>
       <form onSubmit={handleSubmit} className={s.form}>
         <label>
           Логин*

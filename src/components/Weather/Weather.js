@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import s from './Weather.module.css';
 import {
@@ -8,11 +8,14 @@ import {
 import Form from '../Form';
 import Loader from '../Loader';
 import WeatherBar from '../WeatherBar';
+import authCtx from '../../context/authContext';
 
 export default function Weather() {
   const [isLoading, setIsLoading] = useState(false);
   const [city, setCity] = useState(getCityFromLocalStorage);
   const [weather, setWeather] = useState({});
+
+  const { logOut } = useContext(authCtx);
 
   function getCityFromLocalStorage() {
     return JSON.parse(window.localStorage.getItem('city')) ?? '';
@@ -51,6 +54,12 @@ export default function Weather() {
 
   return (
     <div className={s.wrapper}>
+      <div className={s.logout}>
+        <button className={s.button} onClick={logOut}>
+          Logout
+        </button>
+      </div>
+
       <Form setCity={setCity} />
       {isLoading && <Loader />}
       {Object.keys(weather).length !== 0 && !isLoading && (

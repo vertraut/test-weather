@@ -5,14 +5,15 @@ import Weather from './components/Weather';
 import SignInForm from './components/SignInForm';
 import NotFoundView from './views/NotFoundView';
 import PrivateRoute from './Routes/PrivateRoute';
+import PublicRoute from './Routes/PublicRoute';
 
 function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path="/" exact>
+        <PublicRoute path="/" exact>
           <SignInForm />
-        </Route>
+        </PublicRoute>
         <PrivateRoute path="/weather">
           <Weather />
         </PrivateRoute>

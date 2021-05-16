@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
 
 import s from './Weather.module.css';
+
 import {
   getWeatherByCity,
   getWeatherByCoords,
 } from '../../weatherAPI/weatherAPI';
+import getUserCity from '../../ipwhoisAPI/weatherAPI';
 import Form from '../Form';
 import Loader from '../Loader';
 import WeatherBar from '../WeatherBar';
@@ -50,6 +52,10 @@ export default function Weather() {
 
   function errorHandler(error) {
     console.log(error);
+    setIsLoading(true);
+    getUserCity()
+      .then(setCity)
+      .finally(() => setIsLoading(false));
   }
 
   return (

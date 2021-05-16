@@ -6,7 +6,7 @@ import {
   getWeatherByCity,
   getWeatherByCoords,
 } from '../../weatherAPI/weatherAPI';
-import getUserCity from '../../ipwhoisAPI/weatherAPI';
+import getUserCity from '../../ipwhoisAPI';
 import Form from '../Form';
 import Loader from '../Loader';
 import WeatherBar from '../WeatherBar';
@@ -27,6 +27,8 @@ export default function Weather() {
     window.localStorage.setItem('city', JSON.stringify(city));
 
     if (city === '') {
+      setIsLoading(true);
+
       const geolocation = navigator.geolocation;
       geolocation.getCurrentPosition(showLocation, errorHandler);
     }
@@ -54,7 +56,9 @@ export default function Weather() {
     console.log(error);
     setIsLoading(true);
     getUserCity()
-      .then(setCity)
+      .then(data => {
+        setCity(data);
+      })
       .finally(() => setIsLoading(false));
   }
 

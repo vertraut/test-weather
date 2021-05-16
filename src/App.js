@@ -4,6 +4,7 @@ import './App.css';
 import Weather from './components/Weather';
 import SignInForm from './components/SignInForm';
 import NotFoundView from './views/NotFoundView';
+import PrivateRoute from './Routes/PrivateRoute';
 
 function App() {
   return (
@@ -12,9 +13,9 @@ function App() {
         <Route path="/" exact>
           <SignInForm />
         </Route>
-        <Route path="/weather">
+        <PrivateRoute path="/weather">
           <Weather />
-        </Route>
+        </PrivateRoute>
         <Route>
           <NotFoundView />
         </Route>

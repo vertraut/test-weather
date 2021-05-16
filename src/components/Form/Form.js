@@ -25,6 +25,7 @@ export default function Form({ setCity }) {
         onChange={handleCityChange}
         className={s.input}
       />
+
       <button type="submit" className={s.button}>
         Найти
       </button>
